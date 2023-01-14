@@ -6,6 +6,7 @@ export default {
     data(){
     return {
       store,
+      imageUrl: 'https://image.tmdb.org/t/p/w342'
     }
   },
 }
@@ -13,25 +14,33 @@ export default {
 
 <template>
     <div class="container-fluid results d-flex flex-wrap">
-    <div class="row">
-      <div class="col-2 result" v-for="film in store.filmList">
-        <p>
-          Titolo:
-          {{ (film.media_type == 'movie') ? film.title : film.name }}
-        </p>
-        <p>
-          Tipo:
-          {{ film.media_type }}
-        </p>
-        <p>
-          Lingua:
-          {{ film.original_language }}
-        </p>
-        <p>
-          Voto:
-          {{ film.vote_average }}
-        </p>
-      </div>
+    <div class="row g-3">
+        <ul class="col-2 result" v-for="film in store.filmList">
+            <li>
+                <img :src="imageUrl + film.poster_path" alt="cover_image">
+                <div class="info">
+                    <p>
+                        Titolo:
+                        {{ (film.media_type == 'movie') ? film.title : film.name }}
+                    </p>
+                    <p>
+                        Tipo:
+                        {{ film.media_type }}
+                    </p>
+                    <p>
+                        Lingua:
+                        {{ film.original_language }}
+                    </p>
+                    <div class="d-flex">
+                        Voto:
+                        <p v-for="n in Math.round(film.vote_average / 2)" class="star ms-1">
+                            <font-awesome-icon icon="fa-solid fa-star" />
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+      
     </div>
   </div>
 </template>
@@ -41,14 +50,41 @@ export default {
 @use '../styles/general.scss' as *;
 @use '../styles/partials/variables.scss' as *;
 
+p{
+    margin: 0;
+}
+
 .results{
   min-height: 200px;
-  border: 1px solid black;
-  background-color: green;
 
   .result{
-    border: 1px solid red;
-    min-height: 100px
+    min-height: 100px;
+    position: relative;
+    &:hover img{
+        opacity: 0.3;
+    }
+
+    &:hover .info{
+        display: block;
+    }
+
+    img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .info{
+        display: none;
+        position: absolute;
+        width: 60%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        .star{
+            color: rgb(255,189,0);
+        }
+    }
   }
 
 }

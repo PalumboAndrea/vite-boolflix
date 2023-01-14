@@ -1,16 +1,20 @@
 <script>
 import SingleCard from './components/SingleCard.vue'
-import SearchBar from './components/SearchBar.vue'
+
+import AppHeader from './components/AppHeader.vue'
 
 export default {
   components:{
     SingleCard,
-    SearchBar,
+    AppHeader,
   },
   data(){
     return {
-
+      
     }
+  },
+  methods: {
+    
   },
   created(){
 
@@ -20,12 +24,14 @@ export default {
 </script>
 
 <template>
-  <SearchBar />
-  
+  <AppHeader />
+
+
   <SingleCard />
 </template>
 
 <style lang="scss">
-@use './styles/general.scss'
+@use './styles/general.scss';
+@use './bootstrap/scss/bootstrap.scss' as *;
 
 </style>
