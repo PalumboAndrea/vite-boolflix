@@ -1,19 +1,31 @@
 <script>
-import axios from 'axios';
+import SingleCard from './components/SingleCard.vue'
+import SearchBar from './components/SearchBar.vue'
 
+export default {
+  components:{
+    SingleCard,
+    SearchBar,
+  },
+  data(){
+    return {
 
+    }
+  },
+  created(){
+
+  }
+}
 
 </script>
 
 <template>
-  <div>
-    ciao
-  </div>
+  <SearchBar />
+  
+  <SingleCard />
 </template>
 
 <style lang="scss">
-@use './bootstrap/scss/bootstrap.scss' as *;
-@use './styles/general.scss' as *;
-@use './styles/partials/variables.scss' as *;
+@use './styles/general.scss'
 
 </style>
