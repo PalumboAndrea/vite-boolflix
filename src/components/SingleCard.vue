@@ -17,11 +17,11 @@ export default {
       <div class="col-2 result" v-for="film in store.filmList">
         <p>
           Titolo:
-          {{ film.title }}
+          {{ (film.media_type == 'movie') ? film.title : film.name }}
         </p>
         <p>
-          Titolo originale:
-          {{ film.original_title }}
+          Tipo:
+          {{ film.media_type }}
         </p>
         <p>
           Lingua:
