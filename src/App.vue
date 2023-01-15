@@ -1,6 +1,5 @@
 <script>
 import SingleCard from './components/SingleCard.vue'
-
 import AppHeader from './components/AppHeader.vue'
 
 export default {
@@ -12,22 +11,18 @@ export default {
     return {
       
     }
-  },
-  methods: {
-    
-  },
-  created(){
-
   }
 }
 
 </script>
 
 <template>
-  <AppHeader />
+
+  <AppHeader/>
 
 
-  <SingleCard />
+  <SingleCard/>
+
 </template>
 
 <style lang="scss">

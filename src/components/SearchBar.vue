@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import { store } from '../../store.js';
 
 export default {
@@ -10,29 +9,42 @@ export default {
         }
     },
     methods:{
-        getResults(searchedText){
-        axios.get(`https://api.themoviedb.org/4/search/multi?api_key=7cf13cd92f233be2d474cd7b4c1399b5&language=en-US&query=${searchedText}&page=1&include_adult=false`, {
-            params: {
-            title: searchedText,
-            }
-        })
-        .then((response) => {
-            this.store.filmList = response.data.results;
-            console.log(this.store.filmList)
-        })
+        resetFilmList(){
+            this.searchText = '';
+            this.store.methods.trendingResults();
         }
     },
+    created(){
+        this.resetFilmList();
+    }
 }
 </script>
 
 <template>
-   <div>
+   <div id="searchbar-container" class="p-1 d-flex align-items-center justify-content-between">
+    <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="pointer me-1"/>
     <input type="text" name="searchField" id="searchField" placeholder="Search" v-model.trim="searchText"
-    @keyup.enter="getResults(searchText)">
+    @keyup.enter="$emit('searchedText', searchText)" >
+    <font-awesome-icon icon="fa-solid fa-x" class="pointer" @click="resetFilmList"/>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use './bootstrap/scss/bootstrap.scss' as *;
+
+#searchbar-container{
+    width: 250px;
+    border: 1px solid white;
+    color: white;
+
+    input{
+        width: 200px;
+        border: none;
+        color: white;
+        background-color: black;
+        appearance: none;
+    }
+
+}
 
 </style>
