@@ -1,11 +1,13 @@
 <script>
-import SingleCard from './components/SingleCard.vue'
-import AppHeader from './components/AppHeader.vue'
+import AppHeader from './components/Header/AppHeader.vue'
+import AppMain from './components/Main/AppMain.vue'
+import AppFooter from './components/Footer/AppFooter.vue'
 
 export default {
   components:{
-    SingleCard,
     AppHeader,
+    AppMain,
+    AppFooter,
   },
   data(){
     return {
@@ -20,13 +22,15 @@ export default {
 
   <AppHeader/>
 
+  <AppMain />
 
-  <SingleCard/>
+  <AppFooter />
 
 </template>
 
 <style lang="scss">
-@use './styles/general.scss';
+@use './styles/general.scss' as *;
 @use './bootstrap/scss/bootstrap.scss' as *;
+@use './styles/partials/variables' as *;
 
 </style>

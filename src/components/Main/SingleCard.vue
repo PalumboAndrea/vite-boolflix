@@ -1,5 +1,5 @@
 <script>
-import { store } from '../../store';
+import { store } from '../../../store';
 
 export default {
     data(){
@@ -15,25 +15,28 @@ export default {
     <div class="container-fluid results d-flex flex-wrap">
         <div class="row">
             <template v-for="film in store.filmList">
-                <article class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 result px-1 py-3" v-if="(film.media_type == 'movie' || film.media_type == 'tv')">
+                <article class="col-4 col-lg-3 col-xl-2 result px-2 py-3" v-if="(film.media_type == 'movie' || film.media_type == 'tv')">
                     <img :src="(film.poster_path === null) ? 'src/assets/img/image-not-found.jpeg' : (imageUrl + film.poster_path)" alt="cover_image" class="cover-image">
                     <div class="info">
                         <p>
-                            Titolo:
+                            Title:
                             <span class="bold">{{ (film.media_type == 'movie') ? film.title : film.name }}</span>
                         </p>
                         <p>
-                            Tipo:
+                            Type:
                             <span class="bold">{{ film.media_type }}</span>
                         </p>
                         <p>
-                            Lingua:
+                            Language:
                             <span class="bold">{{ film.original_language }}</span>
                         </p>
                         <div class="d-flex">
-                            Voto:
+                            Vote:
                             <p v-if="film.vote_average > 0" v-for="n in Math.round(film.vote_average / 2)" class="star ms-1">
                                 <font-awesome-icon icon="fa-solid fa-star" />
+                            </p>
+                            <p v-else class="ms-1">
+                                no votes
                             </p>
                         </div>
                         <p class="overview-container">
@@ -49,8 +52,8 @@ export default {
 
 <style lang="scss" scoped>
 @use './bootstrap/scss/bootstrap.scss' as *;
-@use '../styles/general.scss' as *;
-@use '../styles/partials/variables.scss' as *;
+@use '../../styles/general.scss' as *;
+@use '../../styles/partials/variables.scss' as *;
 
 p{
     margin: 0;
@@ -59,13 +62,12 @@ p{
 .results{
   min-height: 200px;
   padding: 0 100px;
-  background-color: rgb(20,20,20);
 
     .result{
         min-height: 100px;
         position: relative;
         &:hover img{
-            opacity: 0.4;
+            opacity: 0.2;
         }
         &:hover .info{
             display: block;
@@ -86,7 +88,7 @@ p{
             height: 90%;
             overflow: scroll;
             font-weight: 700;
-            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
 
             .bold{
                 font-size: 1rem;

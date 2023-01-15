@@ -1,5 +1,5 @@
 <script>
-import { store } from '../../store.js';
+import { store } from '../../../store.js';
 
 export default {
     data(){
@@ -11,11 +11,10 @@ export default {
     methods:{
         resetFilmList(){
             this.searchText = '';
-            this.store.methods.trendingResults();
         }
     },
     created(){
-        this.resetFilmList();
+        
     }
 }
 </script>
@@ -25,7 +24,7 @@ export default {
     <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="pointer me-1"/>
     <input type="text" name="searchField" id="searchField" placeholder="Search" v-model.trim="searchText"
     @keyup.enter="$emit('searchedText', searchText)" >
-    <font-awesome-icon icon="fa-solid fa-x" class="pointer" @click="resetFilmList"/>
+    <font-awesome-icon icon="fa-solid fa-x" class="pointer" @click="resetFilmList(), $emit('activateFunction')"/>
   </div>
 </template>
 
