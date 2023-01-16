@@ -24,12 +24,13 @@ export default {
     <font-awesome-icon icon="fa-solid fa-magnifying-glass" class="pointer me-1"/>
     <input type="text" name="searchField" id="searchField" placeholder="Search" v-model.trim="searchText"
     @keyup.enter="$emit('searchedText', searchText)" >
-    <font-awesome-icon icon="fa-solid fa-x" class="pointer" @click="resetFilmList(), $emit('activateFunction')"/>
+    <font-awesome-icon icon="fa-solid fa-x" class="pointer" @click="resetFilmList(), $emit('activateFunction', 0)"/>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @use './bootstrap/scss/bootstrap.scss' as *;
+@use '../../styles/partials/variables' as *;
 
 #searchbar-container{
     width: 250px;
@@ -40,8 +41,12 @@ export default {
         width: 200px;
         border: none;
         color: white;
-        background-color: black;
+        background-color: $bg-color;
         appearance: none;
+
+        &:focus{
+            outline: none;
+        }
     }
 
 }
