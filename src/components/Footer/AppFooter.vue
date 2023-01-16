@@ -5,12 +5,11 @@ export default {
 </script>
 
 <template>
-    <div class="my-container">
-        <p>
-            Footer --> Work in progress
+    <div class="my-container d-flex align-items-center">
+        <p class="ms-4">
+            Powered by <span>Andrea</span>
         </p>
     </div>
-    
 </template>
 
 <style lang="scss" scoped>
@@ -24,8 +23,11 @@ export default {
 
         p{
             color: white;
-            font-size: 3rem;
-            font-weight: 700;
+            font-size: 1rem;
+
+            span{
+                font-weight: 700;
+            }
         }
     }
 </style>

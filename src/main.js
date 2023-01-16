@@ -9,9 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { faX } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
 
 /* add icons to the library */
-library.add(faStar, faMagnifyingGlass, faX)
+library.add(faStar, faMagnifyingGlass, faX, faBars)
 
 createApp(App)
 .component('font-awesome-icon', FontAwesomeIcon)

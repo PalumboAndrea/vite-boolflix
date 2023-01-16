@@ -36,7 +36,7 @@ export default {
                     api: 'https://api.themoviedb.org/3/movie/top_rated?',
                 }
             ],
-            genreId: '',
+            index: '',
         }
     },
     components:{
@@ -65,7 +65,6 @@ export default {
         .then((response) => {
             this.store.filmList = response.data.results;
             this.store.searchTitle = this.menuList[index].text + ':';
-            console.log(this.store.filmList);
         })
     },
     getAllGenres(){
@@ -76,21 +75,20 @@ export default {
         })
         .then((response) => {
             this.store.genres = response.data.genres;
-            console.log(this.store.genres);
         })
-    },getGenresResults(){
+    },
+    getGenresResults(){
         axios.get('https://api.themoviedb.org/3/discover/movie?', {
         params: {
             api_key: this.apiKey,
-            with_genres: this.genreId,
+            with_genres: this.store.genres[this.index].id,
             sort_by: 'popularity.desc',
             page: 1,
-            include_adult: false,
         }
         })
         .then((response) => {
             this.store.filmList = response.data.results;
-            console.log(this.store.filmList);
+            this.store.searchTitle = 'you are searching for: ' + this.store.genres[this.index].name;
         })
     }
   },
@@ -106,15 +104,15 @@ export default {
     <div id="header-container" class="container-fluid d-flex align-items-center justify-content-between">
         
         <img src="../../assets/img/logo.png" alt="logo" class="p-0 ms-5">
-        <div class="d-flex">
+        <div class="d-flex align-items-center">
             <HeaderMenu @activateFunction="trendingResults"
             v-for="item, index in menuList"
             :titles="item.title"
             :statu="item.status"
             :index="index"/>
-            <select name="" id="" class="form-select" @change="getGenresResults()" v-model="genreId">
-                <option selected disabled>Select a category</option>
-                <option :value="genre.id" v-for="genre in this.store.genres" > {{ genre.name }} </option>
+            <select name="" id="" class=" ms-3" aria-label="Default select example" @change="getGenresResults()" v-model="index">
+                <option value="" selected disabled hidden>Select a movie category</option>
+                <option :value="index" v-for="genre, index in this.store.genres" > {{ genre.name }} </option>
             </select>
         </div>
         <SearchBar 
@@ -125,6 +123,7 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+@use '../../styles/partials/variables' as *;
 
     #header-container{
         height: 10vh;
@@ -133,6 +132,15 @@ export default {
         img{
             width: 150px;
             height: 40px;
+        }
+
+        select{
+            color: white;
+            border: none;
+            background-color: $bg-color;
+            &:focus{
+                outline: none;
+            }
         }
 
     }
