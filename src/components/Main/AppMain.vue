@@ -40,7 +40,7 @@ export default {
         p{
             color: white;
             text-transform: uppercase;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             padding: 0 100px;
         }
     }

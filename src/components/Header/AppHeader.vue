@@ -15,28 +15,31 @@ export default {
                 {
                     title: 'Home',
                     status: false,
+                    text: 'trending',
                     api: 'https://api.themoviedb.org/3/trending/all/day?api_key=7cf13cd92f233be2d474cd7b4c1399b5',
                 },
                 {
                     title: 'TV Shows',
                     status: false,
+                    text: 'popular tv shows',
                     api: 'https://api.themoviedb.org/3/tv/popular?',
                 },
                 {
                     title: 'Movies',
                     status: false,
+                    text: 'popular movies',
                     api: 'https://api.themoviedb.org/3/movie/popular?',
                 },
                 {
                     title: 'Top Rated',
                     status: false,
+                    text: 'top rated movies',
                     api: 'https://api.themoviedb.org/3/movie/top_rated?',
                 },
                 {
                     title: 'My List',
                     status: false,
                 },
-
             ],
         }
     },
@@ -65,7 +68,7 @@ export default {
         })
         .then((response) => {
             this.store.filmList = response.data.results;
-            this.store.searchTitle = 'trending movies:';
+            this.store.searchTitle = this.menuList[index].text + ':';
             console.log(this.store.filmList);
         })
     }
