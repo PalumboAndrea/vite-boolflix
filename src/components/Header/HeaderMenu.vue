@@ -1,4 +1,6 @@
 <script>
+import { store } from '../../../store'
+
 export default {
     props: {
         titles: String,
@@ -7,7 +9,7 @@ export default {
     },
     data(){
         return{
-            
+            store,
         }
     },
     methods:{
@@ -21,8 +23,8 @@ export default {
 
 <template>
 
-    <div class="wrapper">
-        <div class="ms-3 menu" @click="$emit('activateFunction', index)">
+    <div class="wrapper d-flex align-items-center justify-content-between">
+        <div class="mx-2 menu" @click="$emit('activateFunction', index)">
             {{ titles }}
         </div>
     </div>
@@ -33,5 +35,6 @@ export default {
     .menu{
         color: white;
         cursor: pointer;
+        white-space:nowrap;
     }
 </style>

@@ -38,9 +38,12 @@ export default {
                         </p>
                         <div class="d-flex">
                             Vote:
-                            <p>
+                            <p v-if="film.vote_average > 0">
                                 <font-awesome-icon icon="fa-solid fa-star" v-for="n in Math.round(film.vote_average / 2)" class="star-yellow ms-1"/>
                                 <font-awesome-icon icon="fa-solid fa-star" v-for="n in (5 - Math.round(film.vote_average / 2))" class="ms-1 star-grey"/>
+                            </p>
+                            <p v-else>
+                                <font-awesome-icon icon="fa-solid fa-star" v-for="n in 5" class="ms-1 star-grey"/>
                             </p>
                             
                         </div>
@@ -98,7 +101,7 @@ p{
             .flag{
                 opacity: 1;
                 height: 18px;
-         
+                width: 22px;
             }
 
             .bold{

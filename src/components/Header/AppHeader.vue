@@ -3,7 +3,6 @@ import SearchBar from './SearchBar.vue'
 import HeaderMenu from './HeaderMenu.vue';
 import { store } from '../../../store';
 import axios from 'axios';
-import { useAttrs } from 'vue';
 
 export default {
     data(){
@@ -35,12 +34,9 @@ export default {
                     status: false,
                     text: 'top rated movies',
                     api: 'https://api.themoviedb.org/3/movie/top_rated?',
-                },
-                {
-                    title: 'My List',
-                    status: false,
-                },
+                }
             ],
+            genreId: '',
         }
     },
     components:{
@@ -71,10 +67,36 @@ export default {
             this.store.searchTitle = this.menuList[index].text + ':';
             console.log(this.store.filmList);
         })
+    },
+    getAllGenres(){
+        axios.get('https://api.themoviedb.org/3/genre/movie/list?', {
+        params: {
+            api_key: this.apiKey,
+        }
+        })
+        .then((response) => {
+            this.store.genres = response.data.genres;
+            console.log(this.store.genres);
+        })
+    },getGenresResults(){
+        axios.get('https://api.themoviedb.org/3/discover/movie?', {
+        params: {
+            api_key: this.apiKey,
+            with_genres: this.genreId,
+            sort_by: 'popularity.desc',
+            page: 1,
+            include_adult: false,
+        }
+        })
+        .then((response) => {
+            this.store.filmList = response.data.results;
+            console.log(this.store.filmList);
+        })
     }
   },
   created(){
     this.trendingResults(0);
+    this.getAllGenres();
   }
 
 }
@@ -90,6 +112,10 @@ export default {
             :titles="item.title"
             :statu="item.status"
             :index="index"/>
+            <select name="" id="" class="form-select" @change="getGenresResults()" v-model="genreId">
+                <option selected disabled>Select a category</option>
+                <option :value="genre.id" v-for="genre in this.store.genres" > {{ genre.name }} </option>
+            </select>
         </div>
         <SearchBar 
         @searchedText="getResults"
