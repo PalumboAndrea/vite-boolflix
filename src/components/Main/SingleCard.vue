@@ -15,12 +15,12 @@ export default {
     <div class="container-fluid results d-flex flex-wrap">
         <div class="row">
             <template v-for="film in store.filmList">
-                <article class="col-4 col-lg-3 col-xl-2 result px-2 py-3" v-if="(film.media_type == 'movie' || film.media_type == 'tv')">
+                <article class="col-4 col-lg-3 col-xl-2 result px-2 py-3" :class="film.media_type == 'person' ? 'd-none' : ''">
                     <img :src="(film.poster_path === null) ? 'src/assets/img/image-not-found.jpeg' : (imageUrl + film.poster_path)" alt="cover_image" class="cover-image">
                     <div class="info">
                         <p>
                             Title:
-                            <span class="bold">{{ (film.media_type == 'movie') ? film.title : film.name }}</span>
+                            <span class="bold">{{ film.title || film.name }}</span>
                         </p>
                         <p>
                             Type:

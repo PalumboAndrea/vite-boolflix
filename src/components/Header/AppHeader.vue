@@ -3,27 +3,34 @@ import SearchBar from './SearchBar.vue'
 import HeaderMenu from './HeaderMenu.vue';
 import { store } from '../../../store';
 import axios from 'axios';
+import { useAttrs } from 'vue';
 
 export default {
     data(){
         return{
             store,
+            apiUrlSearch: 'https://api.themoviedb.org/3/search/multi?',
+            apiKey: '7cf13cd92f233be2d474cd7b4c1399b5',
             menuList: [
                 {
                     title: 'Home',
                     status: false,
+                    api: 'https://api.themoviedb.org/3/trending/all/day?api_key=7cf13cd92f233be2d474cd7b4c1399b5',
                 },
                 {
                     title: 'TV Shows',
                     status: false,
+                    api: 'https://api.themoviedb.org/3/tv/popular?',
                 },
                 {
                     title: 'Movies',
                     status: false,
+                    api: 'https://api.themoviedb.org/3/movie/popular?',
                 },
                 {
-                    title: 'Recently Added',
+                    title: 'Top Rated',
                     status: false,
+                    api: 'https://api.themoviedb.org/3/movie/top_rated?',
                 },
                 {
                     title: 'My List',
@@ -39,53 +46,52 @@ export default {
   },
   methods: {
     getResults(searchedText){
-        axios.get(`https://api.themoviedb.org/4/search/multi?api_key=7cf13cd92f233be2d474cd7b4c1399b5&language=en-US&query=${searchedText}&page=1`, {
+        axios.get(this.apiUrlSearch, {
             params: {
-            text: searchedText,
+                api_key: this.apiKey,
+                query: searchedText,
             }
         })
         .then((response) => {
             this.store.filmList = response.data.results;
             this.store.searchTitle = 'risultati per: ' + searchedText;
-            console.log(this.store.filmList);
         })
     },
-    trendingResults(el){
-        console.log(el);
-        
-        axios.get('https://api.themoviedb.org/3/trending/all/day?api_key=7cf13cd92f233be2d474cd7b4c1399b5', {
+    trendingResults(index){
+        axios.get(this.menuList[index].api, {
         params: {
-            
+            api_key: this.apiKey,
         }
         })
         .then((response) => {
             this.store.filmList = response.data.results;
-            this.store.searchTitle = 'trending movies:'
-            console.log(this.store.filmList)
+            this.store.searchTitle = 'trending movies:';
+            console.log(this.store.filmList);
         })
     }
   },
   created(){
-    this.trendingResults();
+    this.trendingResults(0);
   }
 
 }
 </script>
 
 <template>
-    <div id="header-container" class="container-fluid">
-        <div class="row h-100 d-flex align-items-center">
-            <img src="../../assets/img/logo.png" alt="logo" class="p-0 ms-5">
-            <div v-for="item in menuList"
+    <div id="header-container" class="container-fluid d-flex align-items-center justify-content-between">
+        
+        <img src="../../assets/img/logo.png" alt="logo" class="p-0 ms-5">
+        <div class="d-flex">
+            <HeaderMenu @activateFunction="trendingResults"
+            v-for="item, index in menuList"
             :titles="item.title"
-            :statu="item.status">
-
-            </div>
-            <HeaderMenu @activateFunction="trendingResults"/>
-            <SearchBar 
-            @searchedText="getResults"
-            @activateFunction="trendingResults" class="me-5"/>
+            :statu="item.status"
+            :index="index"/>
         </div>
+        <SearchBar 
+        @searchedText="getResults"
+        @activateFunction="trendingResults" class="me-5"/>
+        
     </div>
 </template>
 
