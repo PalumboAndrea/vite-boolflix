@@ -1,5 +1,5 @@
 <script>
-import SingleCard from './SingleCard.vue';
+import ResultsCards from './ResultsCards.vue';
 import { store } from '../../../store';
 
 export default {
@@ -9,7 +9,7 @@ export default {
         }
     },
     components: {
-        SingleCard,
+        ResultsCards,
     },
     created (){
     }
@@ -23,7 +23,7 @@ export default {
             <p class="mb-2">
                 {{store.searchTitle}}
             </p>
-            <SingleCard />
+            <ResultsCards />
         </div>
         
     </div>
